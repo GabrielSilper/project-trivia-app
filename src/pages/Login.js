@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import getToken from '../services/getToken';
 // import './App.css';
 import logo from '../trivia.png';
 
@@ -12,6 +14,13 @@ export default class Login extends Component {
     this.setState({
       [name]: value,
     });
+  };
+
+  handleClick = async () => {
+    const { history } = this.props;
+    const token = await getToken();
+    localStorage.setItem('token', token);
+    history.push('/game');
   };
 
   render() {
@@ -46,11 +55,22 @@ export default class Login extends Component {
             data-testid="btn-play"
             type="button"
             disabled={ !(emailPattern.test(email) && name.length > lengthName) }
+            onClick={ this.handleClick }
           >
             Jogar
+          </button>
+          <button
+            data-testid="btn-settings"
+            type="button"
+          >
+            Configurações
           </button>
         </header>
       </div>
     );
   }
 }
+
+Login.propTypes = {
+  history: PropTypes.func,
+}.isRequired;
