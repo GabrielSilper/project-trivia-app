@@ -1,3 +1,5 @@
+import { DADOS_LOGIN } from '../actions';
+
 const INITIAL_STATE = {
   name: '', // NOME DA PESSOA
   assertions: '', // número - de - acertos,
@@ -7,6 +9,12 @@ const INITIAL_STATE = {
 
 const player = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+  case DADOS_LOGIN:
+    return {
+      ...state,
+      name: action.payload.name,
+      gravatarEmail: action.payload.gravatarEmail,
+    };
   default:
     return state;
   }

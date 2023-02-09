@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import md5 from 'crypto-js/md5';
+import { connect } from 'react-redux';
 import getToken from '../services/getToken';
 // import './App.css';
 import logo from '../trivia.png';
+import { enviaDadosLogin } from '../redux/actions';
 
-export default class Login extends Component {
+class Login extends Component {
   state = {
     email: '',
     name: '',
@@ -17,9 +20,16 @@ export default class Login extends Component {
   };
 
   handleClick = async () => {
-    const { history } = this.props;
+    const { history, dispatch } = this.props;
+    const { email, name } = this.state;
     const token = await getToken();
+    const emailConvertido = md5(email).toString();
     localStorage.setItem('token', token);
+    const payload = {
+      name,
+      gravatarEmail: emailConvertido,
+    };
+    dispatch(enviaDadosLogin(payload));
     history.push('/game');
   };
 
@@ -74,3 +84,5 @@ export default class Login extends Component {
 Login.propTypes = {
   history: PropTypes.func,
 }.isRequired;
+
+export default connect()(Login);
