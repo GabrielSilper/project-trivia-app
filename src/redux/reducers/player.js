@@ -3,7 +3,7 @@ import { DADOS_LOGIN } from '../actions';
 const INITIAL_STATE = {
   name: '', // NOME DA PESSOA
   assertions: '', // número - de - acertos,
-  score: '', // pontuação,
+  score: 0, // pontuação,
   gravatarEmail: '', // email - da - pessoa,
 };
 

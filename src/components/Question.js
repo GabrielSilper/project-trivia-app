@@ -13,7 +13,6 @@ export default class Question extends Component {
   };
 
   render() {
-    console.log(this.props);
     const { category, question, correctAnswer, incorrectAnswers } = this.props;
     const answers = shuffleArray([correctAnswer, ...incorrectAnswers]);
 
@@ -21,7 +20,7 @@ export default class Question extends Component {
       <div>
         <h3 data-testid="question-category">{category}</h3>
         <p data-testid="question-text">{question}</p>
-        <div>
+        <div data-testid="answer-options">
           {answers.map((answer) => (
             <button
               data-testid={ this.verifyIsCorrect(answer) }
