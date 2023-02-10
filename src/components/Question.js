@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { atualizaScore } from '../redux/actions';
 import { shuffleArray } from '../services/Helpers';
 import css from '../styles/Question.module.css';
 
-export default class Question extends Component {
+class Question extends Component {
   state = {
     answers: [],
     reveal: false,
@@ -12,7 +14,9 @@ export default class Question extends Component {
 
   componentDidMount() {
     const { correctAnswer, incorrectAnswers } = this.props;
-    this.setState({ answers: shuffleArray([correctAnswer, ...incorrectAnswers]) });
+    this.setState({
+      answers: shuffleArray([correctAnswer, ...incorrectAnswers]),
+    });
     const oneSecond = 1000;
     this.countDown = setInterval(() => {
       this.setState((prevState) => ({ timer: prevState.timer - 1 }));
@@ -40,9 +44,31 @@ export default class Question extends Component {
     }
   };
 
-  handleClick = (e) => {
-    e.preventDefault();
+  handleClick = (correctAnswer, answer) => {
+    const { difficulty, dispatch } = this.props;
+    const { timer } = this.state;
+    clearInterval(this.countDown);
     this.setState({ reveal: true });
+
+    const difficultyPoint = () => {
+      switch (difficulty) {
+      case 'hard':
+        return 2 + 1;
+      case 'medium':
+        return 2;
+      case 'easy':
+        return 1;
+      default:
+        break;
+      }
+    };
+
+    const point = 10;
+    const total = point + difficultyPoint() * timer;
+
+    if (correctAnswer === answer) {
+      dispatch(atualizaScore(total));
+    }
   };
 
   render() {
@@ -59,14 +85,16 @@ export default class Question extends Component {
         <div data-testid="answer-options">
           {answers.map((answer) => (
             <button
+              type="button"
               data-testid={ this.verifyIsCorrect(answer) }
               key={ answer }
               className={ this.handleStyles(correctAnswer, answer) }
-              onClick={ this.handleClick }
+              onClick={ () => this.handleClick(correctAnswer, answer) }
               disabled={ timer === 0 }
             >
               {answer}
-            </button>))}
+            </button>
+          ))}
         </div>
       </div>
     );
@@ -81,3 +109,5 @@ Question.propTypes = {
   }),
   question: PropTypes.string,
 }.isRequired;
+
+export default connect()(Question);
