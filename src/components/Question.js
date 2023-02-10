@@ -13,7 +13,7 @@ export default class Question extends Component {
   componentDidMount() {
     const { correctAnswer, incorrectAnswers } = this.props;
     this.setState({ answers: shuffleArray([correctAnswer, ...incorrectAnswers]) });
-    const second = 1000;
+    const oneSecond = 1000;
     this.countDown = setInterval(() => {
       this.setState((prevState) => ({ timer: prevState.timer - 1 }));
       const { timer } = this.state;
@@ -21,7 +21,7 @@ export default class Question extends Component {
         clearInterval(this.countDown);
         this.setState({ reveal: true });
       }
-    }, second);
+    }, oneSecond);
   }
 
   verifyIsCorrect = (alternative) => {
