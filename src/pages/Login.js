@@ -34,6 +34,7 @@ class Login extends Component {
   };
 
   render() {
+    const { history } = this.props;
     const { email, name } = this.state;
     const emailPattern = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/;
     const lengthName = 0;
@@ -72,6 +73,9 @@ class Login extends Component {
           <button
             data-testid="btn-settings"
             type="button"
+            onClick={ () => {
+              history.push('/settings');
+            } }
           >
             Configurações
           </button>
