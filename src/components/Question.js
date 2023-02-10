@@ -47,7 +47,7 @@ export default class Question extends Component {
 
   render() {
     const { category, question, correctAnswer } = this.props;
-    const { answers, timer } = this.state;
+    const { answers, timer, reveal } = this.state;
     return (
       <div>
         <p>
@@ -68,6 +68,17 @@ export default class Question extends Component {
               {answer}
             </button>))}
         </div>
+        { reveal
+          ? (
+            <div>
+              <button
+                data-testid="btn-next"
+                type="button"
+              >
+                Next
+              </button>
+            </div>
+          ) : null}
       </div>
     );
   }
