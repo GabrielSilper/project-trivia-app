@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { changeQuestion } from '../redux/actions';
 import { shuffleArray } from '../services/Helpers';
 import css from '../styles/Question.module.css';
 
-export default class Question extends Component {
+class Question extends Component {
   state = {
     answers: [],
     reveal: false,
@@ -40,6 +42,15 @@ export default class Question extends Component {
     }
   };
 
+  onClickNextQuestion = () => {
+    const { dispatch, indexQuestion, onClickNext } = this.props;
+    const max = 4;
+    if (indexQuestion === max) {
+      onClickNext();
+    }
+    dispatch(changeQuestion());
+  };
+
   handleClick = (e) => {
     e.preventDefault();
     this.setState({ reveal: true });
@@ -74,6 +85,7 @@ export default class Question extends Component {
               <button
                 data-testid="btn-next"
                 type="button"
+                onClick={ this.onClickNextQuestion }
               >
                 Next
               </button>
@@ -92,3 +104,9 @@ Question.propTypes = {
   }),
   question: PropTypes.string,
 }.isRequired;
+
+const mapStateToProps = (state) => ({
+  indexQuestion: state.question.indexQuestion,
+});
+
+export default connect(mapStateToProps)(Question);

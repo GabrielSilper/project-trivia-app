@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { getQuestions } from '../services/api';
 import Question from '../components/Question';
 import Header from '../components/Header';
 
-export default class Game extends Component {
+class Game extends Component {
   state = {
     questions: [],
-    actualQuestion: 0,
   };
 
   async componentDidMount() {
@@ -26,11 +26,19 @@ export default class Game extends Component {
       history.push('/');
     }
 
-    this.setState({ questions });
+    this.setState({
+      questions,
+    });
   }
 
+  onClickNext = () => {
+    const { history } = this.props;
+    history.push('/feedback');
+  };
+
   render() {
-    const { questions, actualQuestion } = this.state;
+    const { questions } = this.state;
+    const { indexQuestion, reveal } = this.props;
     return (
       <div>
         <Header />
@@ -38,14 +46,29 @@ export default class Game extends Component {
 
         <div>
           {questions.map((info, i) => (
-            i === actualQuestion
+            i === indexQuestion
           && <Question
             { ...info }
             key={ info.question }
             correctAnswer={ info.correct_answer }
             incorrectAnswers={ info.incorrect_answers }
+            onClickNext={ this.onClickNext }
           />
           ))}
+        </div>
+        <div>
+          { reveal
+            ? (
+              <div>
+                <button
+                  data-testid="btn-next"
+                  type="button"
+                  onClick={ this.onClickNext }
+                >
+                  Next
+                </button>
+              </div>
+            ) : null}
         </div>
       </div>
     );
@@ -57,3 +80,9 @@ Game.propTypes = {
     push: PropTypes.func,
   }),
 }.isRequired;
+
+const mapStateToProps = (state) => ({
+  indexQuestion: state.question.indexQuestion,
+});
+
+export default connect(mapStateToProps)(Game);
