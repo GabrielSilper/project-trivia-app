@@ -1,4 +1,4 @@
-import { CHANGE_QUESTION } from '../actions';
+import { CHANGE_QUESTION, RESETA_QUESTOES } from '../actions';
 
 const INITIAL_STATE = {
   indexQuestion: 0,
@@ -12,6 +12,9 @@ const question = (state = INITIAL_STATE, action) => {
     return {
       indexQuestion: state.indexQuestion > max ? 0 : state.indexQuestion + 1,
     };
+  case RESETA_QUESTOES: return {
+    indexQuestion: 0,
+  };
   default:
     return state;
   }

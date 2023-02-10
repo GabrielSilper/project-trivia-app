@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import getToken from '../services/getToken';
 // import './App.css';
 import logo from '../trivia.png';
-import { enviaDadosLogin } from '../redux/actions';
+import { enviaDadosLogin, resetaQuestoes, resetaScore } from '../redux/actions';
 
 class Login extends Component {
   state = {
@@ -30,6 +30,8 @@ class Login extends Component {
       gravatarEmail: emailConvertido,
     };
     dispatch(enviaDadosLogin(payload));
+    dispatch(resetaQuestoes());
+    dispatch(resetaScore());
     history.push('/game');
   };
 

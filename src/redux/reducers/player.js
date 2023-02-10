@@ -1,4 +1,4 @@
-import { ATUALIZA_SCORE, DADOS_LOGIN } from '../actions';
+import { ATUALIZA_SCORE, DADOS_LOGIN, RESETA_SCORE } from '../actions';
 
 const INITIAL_STATE = {
   name: '', // NOME DA PESSOA
@@ -20,6 +20,12 @@ const player = (state = INITIAL_STATE, action) => {
       ...state,
       score: state.score + action.payload,
       assertions: state.assertions + 1,
+    };
+  case RESETA_SCORE:
+    return {
+      ...state,
+      score: 0,
+      assertions: 0,
     };
   default:
     return state;

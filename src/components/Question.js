@@ -45,9 +45,26 @@ class Question extends Component {
   };
 
   onClickNextQuestion = () => {
-    const { dispatch, indexQuestion, onClickNext } = this.props;
+    const { name,
+      gravatarEmail,
+      score,
+      dispatch,
+      indexQuestion,
+      onClickNext,
+    } = this.props;
     const max = 4;
     if (indexQuestion === max) {
+      const playerInfo = {
+        name,
+        score,
+        picture: `https://www.gravatar.com/avatar/${gravatarEmail}`,
+      };
+      const storage = JSON.parse(localStorage.getItem('ranking'));
+      if (storage) {
+        localStorage.setItem('ranking', JSON.stringify([...storage, playerInfo]));
+      } else {
+        localStorage.setItem('ranking', JSON.stringify([playerInfo]));
+      }
       onClickNext();
     }
     dispatch(changeQuestion());
@@ -99,7 +116,7 @@ class Question extends Component {
               key={ answer }
               className={ this.handleStyles(correctAnswer, answer) }
               onClick={ () => this.handleClick(correctAnswer, answer) }
-              disabled={ timer === 0 }
+              disabled={ reveal }
             >
               {answer}
             </button>
@@ -133,6 +150,7 @@ Question.propTypes = {
 
 const mapStateToProps = (state) => ({
   indexQuestion: state.question.indexQuestion,
+  ...state.player,
 });
 
 export default connect(mapStateToProps)(Question);
