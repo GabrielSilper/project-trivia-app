@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { atualizaScore } from '../redux/actions';
+import { atualizaScore, changeQuestion } from '../redux/actions';
 import { shuffleArray } from '../services/Helpers';
 import css from '../styles/Question.module.css';
 
@@ -44,6 +44,15 @@ class Question extends Component {
     }
   };
 
+  onClickNextQuestion = () => {
+    const { dispatch, indexQuestion, onClickNext } = this.props;
+    const max = 4;
+    if (indexQuestion === max) {
+      onClickNext();
+    }
+    dispatch(changeQuestion());
+  };
+
   handleClick = (correctAnswer, answer) => {
     const { difficulty, dispatch } = this.props;
     const { timer } = this.state;
@@ -73,7 +82,7 @@ class Question extends Component {
 
   render() {
     const { category, question, correctAnswer } = this.props;
-    const { answers, timer } = this.state;
+    const { answers, timer, reveal } = this.state;
     return (
       <div>
         <p>
@@ -96,6 +105,18 @@ class Question extends Component {
             </button>
           ))}
         </div>
+        { reveal
+          ? (
+            <div>
+              <button
+                data-testid="btn-next"
+                type="button"
+                onClick={ this.onClickNextQuestion }
+              >
+                Next
+              </button>
+            </div>
+          ) : null}
       </div>
     );
   }
@@ -110,4 +131,8 @@ Question.propTypes = {
   question: PropTypes.string,
 }.isRequired;
 
-export default connect()(Question);
+const mapStateToProps = (state) => ({
+  indexQuestion: state.question.indexQuestion,
+});
+
+export default connect(mapStateToProps)(Question);
