@@ -1,4 +1,4 @@
-import { DADOS_LOGIN } from '../actions';
+import { ATUALIZA_SCORE, DADOS_LOGIN } from '../actions';
 
 const INITIAL_STATE = {
   name: '', // NOME DA PESSOA
@@ -14,6 +14,11 @@ const player = (state = INITIAL_STATE, action) => {
       ...state,
       name: action.payload.name,
       gravatarEmail: action.payload.gravatarEmail,
+    };
+  case ATUALIZA_SCORE:
+    return {
+      ...state,
+      score: state.score + action.payload,
     };
   default:
     return state;

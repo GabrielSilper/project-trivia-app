@@ -1,6 +1,6 @@
 export const DADOS_LOGIN = 'DADOS_LOGIN';
 export const CHANGE_QUESTION = 'CHANGE_QUESTION';
-export const CHANGE_REVEAL = 'CHANGE_REVEAL';
+export const ATUALIZA_SCORE = 'ATUALIZA_SCORE';
 
 export const enviaDadosLogin = (payload) => ({
   type: DADOS_LOGIN,
@@ -11,6 +11,7 @@ export const changeQuestion = () => ({
   type: CHANGE_QUESTION,
 });
 
-export const changeReveal = () => ({
-  type: CHANGE_REVEAL,
+export const atualizaScore = (payload) => ({
+  type: ATUALIZA_SCORE,
+  payload,
 });

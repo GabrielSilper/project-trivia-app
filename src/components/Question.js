@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { changeQuestion } from '../redux/actions';
+import { atualizaScore, changeQuestion } from '../redux/actions';
 import { shuffleArray } from '../services/Helpers';
 import css from '../styles/Question.module.css';
 
@@ -14,7 +14,9 @@ class Question extends Component {
 
   componentDidMount() {
     const { correctAnswer, incorrectAnswers } = this.props;
-    this.setState({ answers: shuffleArray([correctAnswer, ...incorrectAnswers]) });
+    this.setState({
+      answers: shuffleArray([correctAnswer, ...incorrectAnswers]),
+    });
     const oneSecond = 1000;
     this.countDown = setInterval(() => {
       this.setState((prevState) => ({ timer: prevState.timer - 1 }));
@@ -51,9 +53,31 @@ class Question extends Component {
     dispatch(changeQuestion());
   };
 
-  handleClick = (e) => {
-    e.preventDefault();
+  handleClick = (correctAnswer, answer) => {
+    const { difficulty, dispatch } = this.props;
+    const { timer } = this.state;
+    clearInterval(this.countDown);
     this.setState({ reveal: true });
+
+    const difficultyPoint = () => {
+      switch (difficulty) {
+      case 'hard':
+        return 2 + 1;
+      case 'medium':
+        return 2;
+      case 'easy':
+        return 1;
+      default:
+        break;
+      }
+    };
+
+    const point = 10;
+    const total = point + difficultyPoint() * timer;
+
+    if (correctAnswer === answer) {
+      dispatch(atualizaScore(total));
+    }
   };
 
   render() {
@@ -70,14 +94,16 @@ class Question extends Component {
         <div data-testid="answer-options">
           {answers.map((answer) => (
             <button
+              type="button"
               data-testid={ this.verifyIsCorrect(answer) }
               key={ answer }
               className={ this.handleStyles(correctAnswer, answer) }
-              onClick={ this.handleClick }
+              onClick={ () => this.handleClick(correctAnswer, answer) }
               disabled={ timer === 0 }
             >
               {answer}
-            </button>))}
+            </button>
+          ))}
         </div>
         { reveal
           ? (
