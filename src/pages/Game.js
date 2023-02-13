@@ -25,7 +25,7 @@ class Game extends Component {
       localStorage.removeItem('token');
       history.push('/');
     }
-    
+
     this.setState({
       questions,
     });
