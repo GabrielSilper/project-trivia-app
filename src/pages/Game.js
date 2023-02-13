@@ -25,7 +25,7 @@ class Game extends Component {
       localStorage.removeItem('token');
       history.push('/');
     }
-
+    
     this.setState({
       questions,
     });
@@ -58,7 +58,7 @@ class Game extends Component {
         </div>
         <div>
           { reveal
-            ? (
+            && (
               <div>
                 <button
                   data-testid="btn-next"
@@ -68,7 +68,7 @@ class Game extends Component {
                   Next
                 </button>
               </div>
-            ) : null}
+            )}
         </div>
       </div>
     );
