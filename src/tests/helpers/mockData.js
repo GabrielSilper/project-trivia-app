@@ -10,6 +10,31 @@ export const mockInitialState = {
   },
 };
 
+
+export const playerOne = {
+  player: {
+    name: "Teste",
+    assertions: 4,
+    score: 320,
+    gravatarEmail: "4675ee57486c6ab9507d64d763ffd4f3",
+  },
+  question: {
+    indexQuestion: 5,
+  },
+}
+
+export const playerTwo = {
+  player: {
+    name: "Teste",
+    assertions: 2,
+    score: 320,
+    gravatarEmail: "4675ee57486c6ab9507d64d763ffd4f3",
+  },
+  question: {
+    indexQuestion: 5,
+  },
+}
+
 export const mockDataToken = {
   response_code: 0,
   response_message: "Token Generated Successfully!",
