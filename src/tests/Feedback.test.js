@@ -2,7 +2,7 @@ import renderWithRouterAndRedux from "./helpers/renderWithRouterAndRedux";
 import App from "../App";
 import { screen } from "@testing-library/react";
 import Feedback from "../pages/Feedback";
-import { playerOne, playerTwo } from "./helpers/mockData";
+import { playerOne, playerTwo, playersRanking } from "./helpers/mockData";
 import userEvent from "@testing-library/user-event";
 
 describe("Testando o componente feedback:", () => {
@@ -47,17 +47,8 @@ describe("Testando o componente feedback:", () => {
       "/feedback"
     );
 
-    const players = [{
-        name: "Teste",
-        score: 320,
-        picture: "https://www.gravatar.com/avatar/4675ee57486c6ab9507d64d763ffd4f3",
-      },{
-        name: "outroPlayer",
-        score: 320,
-        picture: "https://www.gravatar.com/avatar/1d640985a4150895564c6728561626f4",
-      }
-    ]
-    localStorage.setItem('ranking', JSON.stringify(players));
+
+    localStorage.setItem('ranking', JSON.stringify(playersRanking));
 
     const rankingButton = screen.getByRole("button", { name: /ranking/i });
     userEvent.click(rankingButton);

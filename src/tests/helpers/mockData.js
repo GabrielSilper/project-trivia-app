@@ -10,7 +10,6 @@ export const mockInitialState = {
   },
 };
 
-
 export const playerOne = {
   player: {
     name: "Teste",
@@ -21,7 +20,7 @@ export const playerOne = {
   question: {
     indexQuestion: 5,
   },
-}
+};
 
 export const playerTwo = {
   player: {
@@ -33,7 +32,19 @@ export const playerTwo = {
   question: {
     indexQuestion: 5,
   },
-}
+};
+export const playersRanking = [
+  {
+    name: "Teste",
+    score: 320,
+    picture: "https://www.gravatar.com/avatar/4675ee57486c6ab9507d64d763ffd4f3",
+  },
+  {
+    name: "outroPlayer",
+    score: 320,
+    picture: "https://www.gravatar.com/avatar/1d640985a4150895564c6728561626f4",
+  },
+];
 
 export const mockDataToken = {
   response_code: 0,
