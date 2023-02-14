@@ -9,6 +9,54 @@ export const mockInitialState = {
     indexQuestion: 0,
   },
 };
+export const mockAssert = {
+  player: {
+    name: "Teste",
+    assertions: 4,
+    score: 320,
+    gravatarEmail: "4675ee57486c6ab9507d64d763ffd4f3",
+  },
+
+  question: {
+    indexQuestion: 5,
+  },
+}
+
+export const playerOne = {
+  player: {
+    name: "Teste",
+    assertions: 4,
+    score: 320,
+    gravatarEmail: "4675ee57486c6ab9507d64d763ffd4f3",
+  },
+  question: {
+    indexQuestion: 5,
+  },
+};
+
+export const playerTwo = {
+  player: {
+    name: "Teste",
+    assertions: 2,
+    score: 320,
+    gravatarEmail: "4675ee57486c6ab9507d64d763ffd4f3",
+  },
+  question: {
+    indexQuestion: 5,
+  },
+};
+export const playersRanking = [
+  {
+    name: "Teste",
+    score: 320,
+    picture: "https://www.gravatar.com/avatar/4675ee57486c6ab9507d64d763ffd4f3",
+  },
+  {
+    name: "outroPlayer",
+    score: 320,
+    picture: "https://www.gravatar.com/avatar/1d640985a4150895564c6728561626f4",
+  },
+];
 
 export const mockDataToken = {
   response_code: 0,
@@ -52,7 +100,7 @@ export const mockDataQuestions = {
     {
       category: "Entertainment: Music",
       type: "multiple",
-      difficulty: "hard",
+      difficulty: "no",
       question:
         "Electronic artists Boys Noize and Skrillex have collaborated and released tracks under what name?",
       correct_answer: "Dog Blood",
@@ -61,7 +109,7 @@ export const mockDataQuestions = {
     {
       category: "Science: Computers",
       type: "multiple",
-      difficulty: "hard",
+      difficulty: "easy",
       question:
         "Lenovo acquired IBM&#039;s personal computer division, including the ThinkPad line of laptops and tablets, in what year?",
       correct_answer: "2005",

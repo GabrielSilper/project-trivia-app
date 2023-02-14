@@ -58,7 +58,7 @@ class Game extends Component {
         </div>
         <div>
           { reveal
-            ? (
+            && (
               <div>
                 <button
                   data-testid="btn-next"
@@ -68,7 +68,7 @@ class Game extends Component {
                   Next
                 </button>
               </div>
-            ) : null}
+            )}
         </div>
       </div>
     );

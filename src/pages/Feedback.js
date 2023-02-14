@@ -44,10 +44,12 @@ class Feedback extends Component {
 }
 
 Feedback.propTypes = {
-  score: PropTypes.number.isRequired,
-  assertions: PropTypes.number.isRequired,
-  history: PropTypes.func.isRequired,
-};
+  assertions: PropTypes.number,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+  score: PropTypes.number,
+}.isRequired;
 
 const mapStateToProps = (state) => ({
   ...state.player,

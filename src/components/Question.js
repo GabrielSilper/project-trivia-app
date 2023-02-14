@@ -85,7 +85,7 @@ class Question extends Component {
       case 'easy':
         return 1;
       default:
-        break;
+        return 1;
       }
     };
 
